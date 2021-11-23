@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Angular vs React vs Vue : Best choice for js Framework? - DEV Community 👩‍💻👨‍💻</title>
+      <meta name="last-updated" content="2021-11-23 20:27:25 UTC">
+      <meta name="user-signed-in" content="true">
+      <meta name="head-cached-at" content="1637699245">
+        <!-- Experimental web monetization payment pointer for micropayments -->
+        <!-- It lets readers make micropayments to websites they visit. -->
+        <!-- This is step 1: Get live in production to test for platform-wide payment pointer. -->
+        <!-- Step 2: Allow authors to set their payment pointer so they can directly monetize their content based on visitors. -->
+        <!-- Step 3: Enable further functionality based on what we learn from this experimentation and how the ecosystem evolves. -->
+        <meta name="monetization" content="$ilp.uphold.com/24HhrUGG7ekn">
+      <meta name="environment" content="production">
+      <link rel="stylesheet" media="all" href="https://dev.to/assets/minimal-4296d417392efdfbbee906c0952d84f539299c5b071f43a8199b1d3e5444ae32.css" id="main-minimal-stylesheet" />
+<link rel="stylesheet" media="all" href="https://dev.to/assets/views-cf27e2da5930b864cc8f6404dc7f652111ffe1f9a233dc80b16b7f6def34b8f9.css" id="main-views-stylesheet" />
+<link rel="stylesheet" media="all" href="https://dev.to/assets/crayons-d6e95a71c4844d3b1c78f7b84da3367cb170898c3831e24bf0f27696eecdf411.css" id="main-crayons-stylesheet" />
+
+      <script src="https://dev.to/assets/base-c6dcbebe4cb14cde7ffba73efb9d4bed45204de3b3767313ad3a5e16499425ee.js" defer="defer"></script>
+        <script src="https://dev.to/packs/js/runtime~base-1427d8e54650c3027f8d.js" defer="defer"></script>
+<script src="https://dev.to/packs/js/base-be924879ad5235a9d62a.chunk.js" defer="defer"></script>
+<script src="https://dev.to/packs/js/runtime~Search-0ddc51a453b8c3e8f9d2.js" defer="defer"></script>
+<script src="https://dev.to/packs/js/0-deb4a3d66346407460bf.chunk.js" defer="defer"></script>
+<script src="https://dev.to/packs/js/2-feac54b0d5293fd89992.chunk.js" defer="defer"></script>
+<script src="https://dev.to/packs/js/Search-844f92e9b0e230684711.chunk.js" defer="defer"></script>
+<script src="https://dev.to/packs/js/runtime~runtimeBanner-d59816f20cd425b4e5c0.js" defer="defer"></script>
+<script src="https://dev.to/packs/js/runtimeBanner-fd996851f16f178568a9.chunk.js" defer="defer"></script>
+<script src="https://dev.to/packs/js/runtime~onboardingRedirectCheck-e5df52722dd25bd1d646.js" defer="defer"></script>
+<script src="https://dev.to/packs/js/onboardingRedirectCheck-3cbeeb630cba22165218.chunk.js" defer="defer"></script>
+<script src="https://dev.to/packs/js/runtime~contentDisplayPolicy-5ee700b710cd45a8fac4.js" defer="defer"></script>
+<script src="https://dev.to/packs/js/contentDisplayPolicy-efa78f2bed2f56a22269.chunk.js" defer="defer"></script>
+      
+    <link rel="canonical" href="https://dev.to/anquestechnolab/angular-vs-react-vs-vue-best-choice-for-js-framework-2p0n" />
+    <meta name="description" content="This blog is a helpful resource for deciding which solution is best for you: Angular vs React vs Vue... Tagged with angular, react, vue, webdev.">
+    <meta name="keywords" content="angular, react, vue, webdev, software, coding, development, engineering, inclusive, community">
+
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://dev.to/anquestechnolab/angular-vs-react-vs-vue-best-choice-for-js-framework-2p0n" />
+    <meta property="og:title" content="Angular vs React vs Vue : Best choice for js Framework?" />
+    <meta property="og:description" content="This blog is a helpful resource for deciding which solution is best for you: Angular vs React vs Vue..." />
+    <meta property="og:site_name" content="DEV Community" />
+    <meta name="twitter:site" content="@thepracticaldev">
+    <meta name="twitter:creator" content="@AnquesTechnolab">
+    <meta name="twitter:title" content="Angular vs React vs Vue : Best choice for js Framework?">
+    <meta name="twitter:description" content="This blog is a helpful resource for deciding which solution is best for you: Angular vs React vs Vue...">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:widgets:new-embed-design" content="on">
+    <meta name="robots" content="max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+      <meta property="og:image" content="https://res.cloudinary.com/practicaldev/image/fetch/s--zZARD7n8--/c_imagga_scale,f_auto,fl_progressive,h_500,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/j57gt3lb6vbvv5lw65ru.jpg" />
+      <meta name="twitter:image:src" content="https://res.cloudinary.com/practicaldev/image/fetch/s--zZARD7n8--/c_imagga_scale,f_auto,fl_progressive,h_500,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/j57gt3lb6vbvv5lw65ru.jpg">
+
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+      <link rel="shortcut icon" type="image/x-icon" href="https://res.cloudinary.com/practicaldev/image/fetch/s--E8ak4Hr1--/c_limit,f_auto,fl_progressive,q_auto,w_32/https://dev-to.s3.us-east-2.amazonaws.com/favicon.ico" />
+      <link rel="apple-touch-icon" href="https://res.cloudinary.com/practicaldev/image/fetch/s--gDM0_LTS--/c_limit,f_png,fl_progressive,q_80,w_180/https://practicaldev-herokuapp-com.freetls.fastly.net/assets/devlogo-pwa-512.png">
+      <link rel="apple-touch-icon" sizes="152x152" href="https://res.cloudinary.com/practicaldev/image/fetch/s--l0c3Kmql--/c_limit,f_png,fl_progressive,q_80,w_152/https://practicaldev-herokuapp-com.freetls.fastly.net/assets/devlogo-pwa-512.png">
+      <link rel="apple-touch-icon" sizes="180x180" href="https://res.cloudinary.com/practicaldev/image/fetch/s--gDM0_LTS--/c_limit,f_png,fl_progressive,q_80,w_180/https://practicaldev-herokuapp-com.freetls.fastly.net/assets/devlogo-pwa-512.png">
+      <link rel="apple-touch-icon" sizes="167x167" href="https://res.cloudinary.com/practicaldev/image/fetch/s--2ecYCSjC--/c_limit,f_png,fl_progressive,q_80,w_167/https://practicaldev-herokuapp-com.freetls.fastly.net/assets/devlogo-pwa-512.png">
+      <link href="https://res.cloudinary.com/practicaldev/image/fetch/s--t7tVouP9--/c_limit,f_png,fl_progressive,q_80,w_192/https://practicaldev-herokuapp-com.freetls.fastly.net/assets/devlogo-pwa-512.png" rel="icon" sizes="192x192" />
+      <link href="https://res.cloudinary.com/practicaldev/image/fetch/s--lrmEcD2H--/c_limit,f_png,fl_progressive,q_80,w_128/https://practicaldev-herokuapp-com.freetls.fastly.net/assets/devlogo-pwa-512.png" rel="icon" sizes="128x128" />
+      <meta name="apple-mobile-web-app-title" content="dev.to">
+      <meta name="application-name" content="dev.to">
+      <meta name="theme-color" content="#000000" />
+      <link rel="search" href="https://dev.to/open-search.xml" type="application/opensearchdescription+xml" title="DEV Community" />
+
+      <meta property="forem:name" content="DEV Community" />
+      <meta property="forem:logo" content="https://res.cloudinary.com/practicaldev/image/fetch/s--PFPhV65b--/c_limit,f_png,fl_progressive,q_80,w_512/https://practicaldev-herokuapp-com.freetls.fastly.net/assets/devlogo-pwa-512.png" />
+      <meta property="forem:domain" content="dev.to" />
+  </head>
+      <body
+        data-user-status="logged-in"
+        class="sans-serif-article-body default-header"
+        data-locale="en"
+        data-honeybadger-key="a45862f6"
+        data-deployed-at="2021-11-23T18:52:41Z"
+        data-latest-commit-id="cbff6cb92f083788cb6bc9cfdb449cd51708d108"
+        data-ga-tracking="UA-71991109-1">
+        <link rel="stylesheet" media="all" href="https://dev.to/assets/minimal-4296d417392efdfbbee906c0952d84f539299c5b071f43a8199b1d3e5444ae32.css" id="secondary-minimal-stylesheet" />
+<link rel="stylesheet" media="all" href="https://dev.to/assets/views-cf27e2da5930b864cc8f6404dc7f652111ffe1f9a233dc80b16b7f6def34b8f9.css" id="secondary-views-stylesheet" />
+<link rel="stylesheet" media="all" href="https://dev.to/assets/crayons-d6e95a71c4844d3b1c78f7b84da3367cb170898c3831e24bf0f27696eecdf411.css" id="secondary-crayons-stylesheet" />
+
+        <div id="body-styles">
+          <style>
+            :root {
+              --accent-brand: #3b49df;
+              --accent-brand-darker: #323ebe;
+              --accent-brand-lighter: #4150f5;
+              --accent-brand-a10: rgba(59, 73, 223, 0.10);
+            }
+          </style>
+        </div>
+         
+
+
+<style>
+  .html-variant-wrapper { display: none}
+</style>
+
+
+
+  
+<div class="crayons-layout crayons-layout--3-cols crayons-layout--article">
+  <aside class="crayons-layout__sidebar-left" aria-label="Article actions">
+
+
+  </aside>
+
+  <main id="main-content" class="crayons-layout__content grid gap-4">
+    <div class="article-wrapper">
+
+
+      <article class="crayons-card crayons-article mb-4"
+        id="article-show-container"
+        data-article-id="901532"
+        data-author-id="738939"
+        data-co-author-ids=""
+        data-path="/anquestechnolab/angular-vs-react-vs-vue-best-choice-for-js-framework-2p0n"
+        data-published="true"
+        data-pin-path="/stories/feed/pinned_article"
+        data-pinned-article-id=""
+         >
+        <header class="crayons-article__header" id="main-title">
+            <div class="crayons-article__cover">
+              <img src="https://res.cloudinary.com/practicaldev/image/fetch/s--bc7v-DCw--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/j57gt3lb6vbvv5lw65ru.jpg" width="1000" height="420" style="background-color:#dddddd;" class="crayons-article__cover__image" alt="Cover image for Angular vs React vs Vue : Best choice for js Framework?">
+            </div>
+
+          <div class="crayons-article__header__meta">
+            <div class="flex s:items-start flex-col s:flex-row">
+              <div id="action-space" class="crayons-article__actions mb-4 s:mb-0 s:order-last"></div>
+              <div class="flex flex-1 mb-5 items-start">
+                <div class="relative">
+                    <a href="/anquestechnolab"><img class="radius-full align-middle" src="https://media-exp1.licdn.com/dms/image/C4D03AQFd0KlDaeNPYw/profile-displayphoto-shrink_200_200/0/1632831503852?e=1643241600&v=beta&t=nt0POyblcqpUOhjbyrI0B9PUfJ2A-cBGKmTDquGx5SE" width="40" height="40" alt="Anques Technolabs" /></a>
+                </div>
+                <div class="pl-3 flex-1">
+                  <a href="/" class="crayons-link fw-bold">Dejan Zebic</a>
+                  <p class="fs-xs color-base-60">
+                      Posted on <time datetime="2021-11-18T08:08:30Z" class="date-no-year">Nov 18</time>
+
+
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <h1 class="fs-3xl m:fs-4xl l:fs-5xl fw-bold s:fw-heavy lh-tight mb-2 medium">
+              Angular vs React vs Vue : Best choice for js Framework?
+            </h1>
+
+              <div class="spec__tags flex flex-wrap">
+                  <a class="crayons-tag   " style="
+        --tag-bg: rgba(169, 2, 42, 0.10);
+        --tag-prefix: #A9022A;
+        --tag-bg-hover: rgba(169, 2, 42, 0.10);
+        --tag-prefix-hover: #A9022A;
+      " href="/t/angular"><span class="crayons-tag__prefix">#</span>angular</a>
+                  <a class="crayons-tag   " style="
+        --tag-bg: rgba(34, 34, 34, 0.10);
+        --tag-prefix: #222222;
+        --tag-bg-hover: rgba(34, 34, 34, 0.10);
+        --tag-prefix-hover: #222222;
+      " href="/t/react"><span class="crayons-tag__prefix">#</span>react</a>
+                  <a class="crayons-tag   " style="
+        --tag-bg: rgba(65, 184, 131, 0.10);
+        --tag-prefix: #41b883;
+        --tag-bg-hover: rgba(65, 184, 131, 0.10);
+        --tag-prefix-hover: #41b883;
+      " href="/t/vue"><span class="crayons-tag__prefix">#</span>vue</a>
+                  <a class="crayons-tag   " style="
+        --tag-bg: rgba(86, 39, 101, 0.10);
+        --tag-prefix: #562765;
+        --tag-bg-hover: rgba(86, 39, 101, 0.10);
+        --tag-prefix-hover: #562765;
+      " href="/t/webdev"><span class="crayons-tag__prefix">#</span>webdev</a>
+              </div>
+          </div>
+        </header>
+
+        <div class="crayons-article__main">
+
+          <div class="crayons-article__body text-styles spec__body" data-article-id="901532" id="article-body">
+            <p>This blog is a helpful resource for deciding which solution is best for you: Angular vs React vs Vue JavaScript framework.</p>
+
+<p>If you’re a developer just starting out on a project and can’t decide which JavaScript framework to use, this guide should help.</p>
+
+<p>React is a user interface library, Angular is a front-end framework, and Vue.js is a progressive framework.</p>
+
+<p>They can be used almost interchangeably to build front-end applications, but they are not identical, so it is important to compare them and understand their differences.</p>
+
+<p>Each framework is component-based, allowing for the rapid development of UI features.<br>
+However, they each have a unique structure and architecture, so we’ll start by examining their architectural differences to better understand the philosophy behind them.</p>
+
+<p>In this segment, we’ll look at various aspects of Angular, Vue, and React to see how they can meet your needs. This post is not just a comparison of Angular vs. React vs. Vue, but it also aims to provide a framework for evaluating front-end JavaScript frameworks in general. If a new framework is tried to introduce next year, you will know exactly what parameters to examine!</p>
+
+<h4>
+  <a name="the-popularity-of-three-frameworks" href="#the-popularity-of-three-frameworks">
+  </a>
+  The popularity of three frameworks
+</h4>
+
+<p><strong>React</strong><br>
+With 160k stars on GitHub, React is one of the most popular JavaScript projects. Facebook created and maintains it, and it is used in many of their internal projects. According to BuiltWith usage statistics, it also powers over 2 million websites.</p>
+
+<p><strong>Vue</strong><br>
+Vue has the most stars on GitHub of the three frameworks, with 176k. Evan You, a former Googler, is the project’s creator and leader. According to BuiltWith, it is a very strong, independent project in the open-source community that is used by over 1 million websites.</p>
+
+<p><strong>Angular</strong><br>
+Google created Angular, but it is surprising that it is not used in some of their flagship products, such as Search or YouTube. Based on BuiltWith data, it powers over 97,000 websites and is frequently used in enterprise projects.</p>
+
+<p>With 68k stars on GitHub, it is the least starred of the three frameworks. When switching from Angular 1 to Angular 2, however, they created an entirely new repository rather than continuing the AngularJS project, which also has 59k stars.</p>
+
+<p><strong>Final Conclusion</strong><br>
+Who will win the Angular vs. React vs. Vue battle? Only by analyzing your goals and project specifics will you be able to answer this question. Angular may appear complicated and slow, but it is also very flexible, allowing you to easily scale projects and spend less time on development.</p>
+
+<p>Dependency injections, change rendering, and data binding is just a few of the key differences between React and Angular. React is simple to learn, and its Virtual DOM is an excellent time-saving tool. However, because React is the most popular development framework in the world, it has a large community surrounding it.</p>
+
+<p>Vue, on the other hand, is the most modern, multi-functional, and lightweight framework created by the community rather than a commercial company. Vue assists in the development of high-performance web and mobile apps that are simple to create and maintain. However, regardless of how appealing React, Angular, or Vue appear, Anques Technolabs recommends that you try each of them to find the solution that best fits your project. And if you need help getting started on a project, we’re here to help.</p>
+
+<p>Read more from source URL: <a href="https://www.anques.com/angular-vs-react-vs-vue-framework/">https://www.anques.com/angular-vs-react-vs-vue-framework/</a></p>
+
+
+
+  </body>
+  </html>

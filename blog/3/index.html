@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>What you need to know about ES modules in Node.js - DEV Community 👩‍💻👨‍💻</title>
+      <meta name="last-updated" content="2021-11-23 20:16:45 UTC">
+      <meta name="user-signed-in" content="true">
+      <meta name="head-cached-at" content="1637698605">
+        <!-- Experimental web monetization payment pointer for micropayments -->
+        <!-- It lets readers make micropayments to websites they visit. -->
+        <!-- This is step 1: Get live in production to test for platform-wide payment pointer. -->
+        <!-- Step 2: Allow authors to set their payment pointer so they can directly monetize their content based on visitors. -->
+        <!-- Step 3: Enable further functionality based on what we learn from this experimentation and how the ecosystem evolves. -->
+        <meta name="monetization" content="$ilp.uphold.com/24HhrUGG7ekn">
+      <meta name="environment" content="production">
+      <link rel="stylesheet" media="all" href="https://dev.to/assets/minimal-4296d417392efdfbbee906c0952d84f539299c5b071f43a8199b1d3e5444ae32.css" id="main-minimal-stylesheet" />
+<link rel="stylesheet" media="all" href="https://dev.to/assets/views-cf27e2da5930b864cc8f6404dc7f652111ffe1f9a233dc80b16b7f6def34b8f9.css" id="main-views-stylesheet" />
+<link rel="stylesheet" media="all" href="https://dev.to/assets/crayons-d6e95a71c4844d3b1c78f7b84da3367cb170898c3831e24bf0f27696eecdf411.css" id="main-crayons-stylesheet" />
+
+      <script src="https://dev.to/assets/base-c6dcbebe4cb14cde7ffba73efb9d4bed45204de3b3767313ad3a5e16499425ee.js" defer="defer"></script>
+        <script src="https://dev.to/packs/js/runtime~base-1427d8e54650c3027f8d.js" defer="defer"></script>
+<script src="https://dev.to/packs/js/base-be924879ad5235a9d62a.chunk.js" defer="defer"></script>
+<script src="https://dev.to/packs/js/runtime~Search-0ddc51a453b8c3e8f9d2.js" defer="defer"></script>
+<script src="https://dev.to/packs/js/0-deb4a3d66346407460bf.chunk.js" defer="defer"></script>
+<script src="https://dev.to/packs/js/2-feac54b0d5293fd89992.chunk.js" defer="defer"></script>
+<script src="https://dev.to/packs/js/Search-844f92e9b0e230684711.chunk.js" defer="defer"></script>
+<script src="https://dev.to/packs/js/runtime~runtimeBanner-d59816f20cd425b4e5c0.js" defer="defer"></script>
+<script src="https://dev.to/packs/js/runtimeBanner-fd996851f16f178568a9.chunk.js" defer="defer"></script>
+<script src="https://dev.to/packs/js/runtime~onboardingRedirectCheck-e5df52722dd25bd1d646.js" defer="defer"></script>
+<script src="https://dev.to/packs/js/onboardingRedirectCheck-3cbeeb630cba22165218.chunk.js" defer="defer"></script>
+<script src="https://dev.to/packs/js/runtime~contentDisplayPolicy-5ee700b710cd45a8fac4.js" defer="defer"></script>
+<script src="https://dev.to/packs/js/contentDisplayPolicy-efa78f2bed2f56a22269.chunk.js" defer="defer"></script>
+      
+    <link rel="canonical" href="https://simonplend.com/what-you-need-to-know-about-es-modules-in-node-js/" />
+    <meta name="description" content="ECMAScript modules are the official standard format to package JavaScript code for reuse.   — Source... Tagged with node, esm, ecmascriptmodules.">
+    <meta name="keywords" content="node, esm, ecmascriptmodules, software, coding, development, engineering, inclusive, community">
+
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://dev.to/simonplend/what-you-need-to-know-about-es-modules-in-node-js-2mh6" />
+    <meta property="og:title" content="What you need to know about ES modules in Node.js" />
+    <meta property="og:description" content="ECMAScript modules are the official standard format to package JavaScript code for reuse.   — Source..." />
+    <meta property="og:site_name" content="DEV Community" />
+    <meta name="twitter:site" content="@thepracticaldev">
+    <meta name="twitter:creator" content="@">
+    <meta name="twitter:title" content="What you need to know about ES modules in Node.js">
+    <meta name="twitter:description" content="ECMAScript modules are the official standard format to package JavaScript code for reuse.   — Source...">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:widgets:new-embed-design" content="on">
+    <meta name="robots" content="max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+      <meta property="og:image" content="https://res.cloudinary.com/practicaldev/image/fetch/s--IDzI8wFb--/c_imagga_scale,f_auto,fl_progressive,h_500,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/i/6uesc7d1sz40m0714fsg.png" />
+      <meta name="twitter:image:src" content="https://res.cloudinary.com/practicaldev/image/fetch/s--IDzI8wFb--/c_imagga_scale,f_auto,fl_progressive,h_500,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/i/6uesc7d1sz40m0714fsg.png">
+
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+      <link rel="shortcut icon" type="image/x-icon" href="https://res.cloudinary.com/practicaldev/image/fetch/s--E8ak4Hr1--/c_limit,f_auto,fl_progressive,q_auto,w_32/https://dev-to.s3.us-east-2.amazonaws.com/favicon.ico" />
+      <link rel="apple-touch-icon" href="https://res.cloudinary.com/practicaldev/image/fetch/s--gDM0_LTS--/c_limit,f_png,fl_progressive,q_80,w_180/https://practicaldev-herokuapp-com.freetls.fastly.net/assets/devlogo-pwa-512.png">
+      <link rel="apple-touch-icon" sizes="152x152" href="https://res.cloudinary.com/practicaldev/image/fetch/s--l0c3Kmql--/c_limit,f_png,fl_progressive,q_80,w_152/https://practicaldev-herokuapp-com.freetls.fastly.net/assets/devlogo-pwa-512.png">
+      <link rel="apple-touch-icon" sizes="180x180" href="https://res.cloudinary.com/practicaldev/image/fetch/s--gDM0_LTS--/c_limit,f_png,fl_progressive,q_80,w_180/https://practicaldev-herokuapp-com.freetls.fastly.net/assets/devlogo-pwa-512.png">
+      <link rel="apple-touch-icon" sizes="167x167" href="https://res.cloudinary.com/practicaldev/image/fetch/s--2ecYCSjC--/c_limit,f_png,fl_progressive,q_80,w_167/https://practicaldev-herokuapp-com.freetls.fastly.net/assets/devlogo-pwa-512.png">
+      <link href="https://res.cloudinary.com/practicaldev/image/fetch/s--t7tVouP9--/c_limit,f_png,fl_progressive,q_80,w_192/https://practicaldev-herokuapp-com.freetls.fastly.net/assets/devlogo-pwa-512.png" rel="icon" sizes="192x192" />
+      <link href="https://res.cloudinary.com/practicaldev/image/fetch/s--lrmEcD2H--/c_limit,f_png,fl_progressive,q_80,w_128/https://practicaldev-herokuapp-com.freetls.fastly.net/assets/devlogo-pwa-512.png" rel="icon" sizes="128x128" />
+      <meta name="apple-mobile-web-app-title" content="dev.to">
+      <meta name="application-name" content="dev.to">
+      <meta name="theme-color" content="#000000" />
+      <link rel="search" href="https://dev.to/open-search.xml" type="application/opensearchdescription+xml" title="DEV Community" />
+
+      <meta property="forem:name" content="DEV Community" />
+      <meta property="forem:logo" content="https://res.cloudinary.com/practicaldev/image/fetch/s--PFPhV65b--/c_limit,f_png,fl_progressive,q_80,w_512/https://practicaldev-herokuapp-com.freetls.fastly.net/assets/devlogo-pwa-512.png" />
+      <meta property="forem:domain" content="dev.to" />
+  </head>
+      <body
+        data-user-status="logged-in"
+        class="sans-serif-article-body default-header"
+        data-locale="en"
+        data-honeybadger-key="a45862f6"
+        data-deployed-at="2021-11-23T18:52:41Z"
+        data-latest-commit-id="cbff6cb92f083788cb6bc9cfdb449cd51708d108"
+        data-ga-tracking="UA-71991109-1">
+        <link rel="stylesheet" media="all" href="https://dev.to/assets/minimal-4296d417392efdfbbee906c0952d84f539299c5b071f43a8199b1d3e5444ae32.css" id="secondary-minimal-stylesheet" />
+<link rel="stylesheet" media="all" href="https://dev.to/assets/views-cf27e2da5930b864cc8f6404dc7f652111ffe1f9a233dc80b16b7f6def34b8f9.css" id="secondary-views-stylesheet" />
+<link rel="stylesheet" media="all" href="https://dev.to/assets/crayons-d6e95a71c4844d3b1c78f7b84da3367cb170898c3831e24bf0f27696eecdf411.css" id="secondary-crayons-stylesheet" />
+
+        <div id="body-styles">
+          <style>
+            :root {
+              --accent-brand: #3b49df;
+              --accent-brand-darker: #323ebe;
+              --accent-brand-lighter: #4150f5;
+              --accent-brand-a10: rgba(59, 73, 223, 0.10);
+            }
+          </style>
+        </div>
+
+
+
+
+
+
+<style>
+  .html-variant-wrapper { display: none}
+</style>
+
+<script src="https://unpkg.com/@webcomponents/webcomponentsjs@2.2.10/webcomponents-loader.js"
+        integrity="sha384-3HK5hxQbkFqOIxMbpROlRmRtYl2LBZ52t+tqcjzsmr9NJuOWQxl8RgQSyFvq2lhy"
+        crossorigin="anonymous" defer></script>
+
+  <script src="https://dev.to/packs/js/runtime~clipboardCopy-f6ce5ddc621e42e1785a.js" defer="defer"></script>
+<script src="https://dev.to/packs/js/clipboardCopy-ef322a65a745644fd9c8.chunk.js" defer="defer"></script>
+<script src="https://dev.to/packs/js/runtime~webShare-9c58f8bfc3f8c45796b2.js" defer="defer"></script>
+<script src="https://dev.to/packs/js/webShare-d45688ffd4d43f9f6670.chunk.js" defer="defer"></script>
+<script src="https://dev.to/packs/js/runtime~articlePage-0eab71ec447f5a0c2b97.js" defer="defer"></script>
+<script src="https://dev.to/packs/js/0-deb4a3d66346407460bf.chunk.js" defer="defer"></script>
+<script src="https://dev.to/packs/js/1-737158b5e8c3b155d6ae.chunk.js" defer="defer"></script>
+<script src="https://dev.to/packs/js/articlePage-ff0719803482aed4fbbe.chunk.js" defer="defer"></script>
+<script src="https://dev.to/packs/js/runtime~articleModerationTools-f672d37944927e68549b.js" defer="defer"></script>
+<script src="https://dev.to/packs/js/articleModerationTools-5af2b7904ae33b7815c7.chunk.js" defer="defer"></script>
+<script src="https://dev.to/packs/js/runtime~commentDropdowns-fa7f05c587a9f090f8e6.js" defer="defer"></script>
+<script src="https://dev.to/packs/js/2-feac54b0d5293fd89992.chunk.js" defer="defer"></script>
+<script src="https://dev.to/packs/js/commentDropdowns-3edd7f5593417e1e17ee.chunk.js" defer="defer"></script>
+
+
+  
+<div class="crayons-layout crayons-layout--3-cols crayons-layout--article">
+  <aside class="crayons-layout__sidebar-left" aria-label="Article actions">
+
+
+
+  </aside>
+
+  <main id="main-content" class="crayons-layout__content grid gap-4">
+    <div class="article-wrapper">
+
+
+      <article class="crayons-card crayons-article mb-4"
+        id="article-show-container"
+        data-article-id="572071"
+        data-author-id="443047"
+        data-co-author-ids=""
+        data-path="/simonplend/what-you-need-to-know-about-es-modules-in-node-js-2mh6"
+        data-published="true"
+        data-pin-path="/stories/feed/pinned_article"
+        data-pinned-article-id=""
+         >
+        <header class="crayons-article__header" id="main-title">
+            <div class="crayons-article__cover">
+              <img src="https://res.cloudinary.com/practicaldev/image/fetch/s--sXje5CNA--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/i/6uesc7d1sz40m0714fsg.png" width="1000" height="420" style="background-color:#dddddd;" class="crayons-article__cover__image" alt="Cover image for What you need to know about ES modules in Node.js">
+            </div>
+
+          <div class="crayons-article__header__meta">
+            <div class="flex s:items-start flex-col s:flex-row">
+              <div id="action-space" class="crayons-article__actions mb-4 s:mb-0 s:order-last"></div>
+              <div class="flex flex-1 mb-5 items-start">
+                <div class="relative">
+                    <a href="/simonplend"><img class="radius-full align-middle" src="https://media-exp1.licdn.com/dms/image/C4D03AQFd0KlDaeNPYw/profile-displayphoto-shrink_200_200/0/1632831503852?e=1643241600&v=beta&t=nt0POyblcqpUOhjbyrI0B9PUfJ2A-cBGKmTDquGx5SE" width="40" height="40" alt="Simon Plenderleith" /></a>
+                </div>
+                <div class="pl-3 flex-1">
+                  <a href="/simonplend" class="crayons-link fw-bold">Dejan Zebic</a>
+                  <p class="fs-xs color-base-60">
+                      Posted on <time datetime="2021-01-18T12:03:26Z" class="date-no-year">Jan 18</time>
+
+
+                      &bull; Originally published at <a style="color:#1395b8" href="https://simonplend.com/what-you-need-to-know-about-es-modules-in-node-js/">simonplend.com</a> on <time datetime="2021-01-18T12:03:26Z" class="date-no-year">Jan 18</time>
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <h1 class="fs-3xl m:fs-4xl l:fs-5xl fw-bold s:fw-heavy lh-tight mb-2 medium">
+              What you need to know about ES modules in Node.js
+            </h1>
+
+              <div class="spec__tags flex flex-wrap">
+                  <a class="crayons-tag   " style="
+        --tag-bg: rgba(61, 136, 54, 0.10);
+        --tag-prefix: #3d8836;
+        --tag-bg-hover: rgba(61, 136, 54, 0.10);
+        --tag-prefix-hover: #3d8836;
+      " href="/t/node"><span class="crayons-tag__prefix">#</span>node</a>
+                  <a class="crayons-tag   " style="
+        --tag-bg: rgba(59, 73, 223, 0.10);
+        --tag-prefix: #3b49df;
+        --tag-bg-hover: rgba(59, 73, 223, 0.10);
+        --tag-prefix-hover: #3b49df;
+      " href="/t/esm"><span class="crayons-tag__prefix">#</span>esm</a>
+                  <a class="crayons-tag   " style="
+        --tag-bg: rgba(59, 73, 223, 0.10);
+        --tag-prefix: #3b49df;
+        --tag-bg-hover: rgba(59, 73, 223, 0.10);
+        --tag-prefix-hover: #3b49df;
+      " href="/t/ecmascriptmodules"><span class="crayons-tag__prefix">#</span>ecmascriptmodules</a>
+              </div>
+          </div>
+        </header>
+
+        <div class="crayons-article__main">
+
+          <div class="crayons-article__body text-styles spec__body" data-article-id="572071" id="article-body">
+            <blockquote>
+<p>ECMAScript modules are the official standard format to package JavaScript code for reuse.</p>
+</blockquote>
+
+<p><em>— Source: <a href="https://nodejs.org/api/esm.html">Node.js documentation for ECMAScript modules</a></em></p>
+
+<p>Up until recently I've tended to avoid using ES modules and <code>import/export</code> syntax in Node.js. I've found it hard to keep track of which versions of Node.js support this syntax out-of-the-box, as well as which ES module features they support. I've put together this short guide in the hope that I can help clear up any confusion that other folks might also have around ES modules in Node.js.</p>
+
+<p>This blog post isn't going to cover much about what ECMAScript (ES) modules are or how to use them. There are lots of resources out there that already do a great job of this. If you want to learn more about ES modules, check out <a href="#my-top-links-for-learning-more">my top links for learning more</a> at the end of this post.</p>
+
+<p>As the quote from the Node.js documentation above mentions, ECMAScript modules are the official <a href="https://tc39.github.io/ecma262/#sec-modules">standard format</a> for modules in JavaScript. The browser JavaScript ecosystem (tooling and browsers) has had good support for ES modules for quite a while now. Meanwhile, there have been tremendous efforts over the past few years to bring ES module support to Node.js too, which has historically only used the <a href="https://nodejs.org/api/modules.html">CommonJS module format</a>.</p>
+
+<p>Let's take a look at what you need to know about ES modules in Node.js today.</p>
+
+<blockquote>
+<p>I intend to update and expand this blog post as needed. If you spot anything incorrect, out-of-date, or which you feel is missing from this post, please <a href="https://twitter.com/simonplend">drop me a message on Twitter</a>. I want to make sure this is a useful and accurate resource!</p>
+</blockquote>
+
+<h2>
+  <a name="jump-links" href="#jump-links">
+  </a>
+  Jump links
+</h2>
+
+<ul>
+<li><a href="#several-names-for-the-same-thing">Several names for the same thing</a></li>
+<li><a href="#which-versions-of-nodejs-have-full-support-for-es-modules">Which versions of Node.js have full support for ES modules?</a></li>
+<li><a href="#why-are-ecmascript-modules-marked-as-experimental-in-the-nodejs-documentation">Why are ECMAScript modules marked as 'Experimental' in the Node.js documentation?</a></li>
+<li><a href="#es-and-commonjs-modules-play-nice-together-mostly">ES and CommonJS modules play nice together (mostly)</a></li>
+<li><a href="#use-es-modules-when-you-start-a-new-nodejs-project">Use ES modules when you start a new Node.js project</a></li>
+<li><a href="#its-probably-not-worth-migrating-your-existing-nodejs-applications-to-use-es-modules">It's probably not worth migrating your existing Node.js applications to use ES modules</a></li>
+<li>
+<a href="#potential-pain-points">Potential pain points</a>
+
+<ul>
+<li><a href="#limited-test-library-support-for-mocking-es-modules">Limited test library support for mocking ES modules</a></li>
+<li><a href="#you-cant-import-json-files-without-using-an-experimental-flag">You can't import JSON files without using an experimental flag</a></li>
+</ul>
+
+
+</li>
+<li><a href="#my-top-links-for-learning-more">My top links for learning more</a></li>
+</ul>
+
+<h2>
+  <a name="several-names-for-the-same-thing" href="#several-names-for-the-same-thing">
+  </a>
+  Several names for the same thing
+</h2>
+
+<p>It took me a while to understand that there are several names which refer to the same thing. In this blog post I'm referring to them as "ES modules", but they are more generally known as "JavaScript modules". This is because they are a language-level module syntax for JavaScript (hence the standard I referenced earlier).</p>
+
+<p>In the Node.js documentation you will generally see JavaScript modules referred to as "ECMAScript modules". In the wider world, this is often abbreviated to "ES modules", or simply "ESM". These are all a reference to <strong>the same thing</strong>.<br>
+</p>
+
+<div class="highlight js-code-highlight">
+<pre class="highlight plaintext"><code>JavaScript modules = ECMAScript modules = ES modules = ESM
+</code></pre>
+<div class="highlight__panel js-actions-panel">
+<div class="highlight__panel-action js-fullscreen-code-action">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewbox="0 0 24 24" class="highlight-action crayons-icon highlight-action--fullscreen-on"><title>Enter fullscreen mode</title>
+    <path d="M16 3h6v6h-2V5h-4V3zM2 3h6v2H4v4H2V3zm18 16v-4h2v6h-6v-2h4zM4 19h4v2H2v-6h2v4z"></path>
+</svg>
+
+    <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewbox="0 0 24 24" class="highlight-action crayons-icon highlight-action--fullscreen-off"><title>Exit fullscreen mode</title>
+    <path d="M18 7h4v2h-6V3h2v4zM8 9H2V7h4V3h2v6zm10 8v4h-2v-6h6v2h-4zM8 15v6H6v-4H2v-2h6z"></path>
+</svg>
+
+</div>
+</div>
+</div>
+
+
+
+<h2>
+  <a name="which-versions-of-nodejs-have-full-support-for-es-modules" href="#which-versions-of-nodejs-have-full-support-for-es-modules">
+  </a>
+  Which versions of Node.js have full support for ES modules?
+</h2>
+
+<p>ES module support was <a href="https://github.com/nodejs/node/blob/master/doc/changelogs/CHANGELOG_V8.md#8.5.0">added to Node.js in v8.5.0</a> (yes, really!), and released in September 2017. At that stage it was highly experimental and missing a lot of the ES module features which Node.js now supports.</p>
+
+<p>Node.js now has full support for ES modules and you can happily use them in Node.js 12.x versions and above. I would however recommend that you use newer versions of Node.js 12.x and 14.x as they have have more mature and stable ES module support. Importantly, they also have improved interoperability with older style CommonJS modules, which are still widely used. I explain this in more detail in my article '<a href="https://simonplend.com/node-js-now-supports-named-imports-from-commonjs-modules-but-what-does-that-mean/">Node.js now supports named imports from CommonJS modules, but what does that mean?</a>'.</p>
+
+<p>Here are the versions I recommend using for the <a href="https://nodejs.org/en/about/releases/">LTS release lines of Node.js</a>:</p>
+
+<ul>
+<li>
+<strong>14.x — v14.13.0 or higher</strong>
+
+<ul>
+<li><em>Why? Support for detection of CommonJS named exports, unflagged <a href="https://nodejs.org/docs/latest-v14.x/api/esm.html#esm_top_level_await">top-level await</a>.</em></li>
+</ul>
+
+
+</li>
+<li>
+<strong>12.x — v12.20.0 or higher</strong>
+
+<ul>
+<li><em>Why? Support for detection of CommonJS named exports, Loading ECMAScript modules no longer requires a command-line flag.</em></li>
+</ul>
+
+
+</li>
+<li>
+<strong>10.x — Don't use ES modules in Node.js v10.x releases</strong>
+
+<ul>
+<li><em>Why? It's missing some key ES module features. It's also end-of-life on 2021-04-30, meaning this release line  will no longer receive bug fixes after that date.</em></li>
+</ul>
+
+
+</li>
+</ul>
+
+<p>It's not a deal breaker - you can use v12.0.0 or v14.0.0 if you like, but using the versions I've mentioned above (or higher) will make your life easier.</p>
+
+<h2>
+  <a name="why-are-ecmascript-modules-marked-as-experimental-in-the-nodejs-documentation" href="#why-are-ecmascript-modules-marked-as-experimental-in-the-nodejs-documentation">
+  </a>
+  Why are ECMAScript modules marked as 'Experimental' in the Node.js documentation?
+</h2>
+
+<p><em>"Hold up, Simon, the Node.js 12.x and 14.x documentation for ECMAScript modules says that this feature is Experimental!"</em></p>
+
+<p>ECMAScript modules are marked as 'Stable' in the <a href="https://nodejs.org/docs/latest-v15.x/api/esm.html">Node.js 15.x documentation for ECMAScript modules</a>, however in the <a href="https://nodejs.org/docs/latest-v12.x/api/esm.html">12.x</a> and <a href="https://nodejs.org/docs/latest-v14.x/api/esm.html">14.x</a> documentation they are marked as 'Experimental'.</p>
+
+<p>If Node.js 12.x and 14.x releases have full support for ES modules, what gives? I was wondering the same, so I <a href="https://twitter.com/simonplend/status/1348995209884016640">asked Matteo Collina on Twitter</a> (he's a member of the <a href="https://github.com/nodejs/TSC">Node.js TSC</a>). Myles Borins (also a member of the TSC) chimed in on the thread to explain the rationale behind ES modules being marked as 'Experimental' in the 12.x and 14.x release lines:</p>
+
+<blockquote>
+<p>We've explicitly not marked it as stable yet just in case we need to make breaking changes between 15 -&gt; 16 that we may want to backport. I don't think 12 will ever get marked stable due to being maintenance.</p>
+</blockquote>
+
+<p><em>(<a href="https://twitter.com/MylesBorins/status/1349016345195786241">Source tweet</a>)</em></p>
+
+<blockquote>
+<p>If we are ready to make the commitment of not breaking anything then yes, it is stable. The 0th hour deprecation of subpath folders does leave me pause though. Also keep in mind that for LTS being experimental makes it easier to make non-breaking changes too.</p>
+</blockquote>
+
+<p><em>(<a href="https://twitter.com/MylesBorins/status/1349021538163585025">Source tweet</a>)</em></p>
+
+<p>My interpretation of this is: you can safely go ahead and use ES modules in Node.js 12.x or 14.x, as the core implementation is highly unlikely to change at this stage. Keeping ES modules marked as 'Experimental' in these Node.js release lines gives the developers working on Node.js some wiggle room to change things if needed. On an open source project of this scale, that makes a lot of sense to me.</p>
+
+<p>Thanks to <a href="https://twitter.com/matteocollina">Matteo</a> and <a href="https://twitter.com/MylesBorins">Myles</a> for helping clarify the situation.</p>
+
+<h2>
+  <a name="es-and-commonjs-modules-play-nice-together-mostly" href="#es-and-commonjs-modules-play-nice-together-mostly">
+  </a>
+  ES and CommonJS modules play nice together (mostly)
+</h2>
+
+<p>Given that the npm registry lists almost 1.5 million packages, many of which <em>only</em> expose a CommonJS module, it's safe to say that interoperability between the ES and CommonJS module formats is really important. The good news is that they generally work pretty well together.</p>
+
+<p>You can reliably <code>import</code> a CommonJS module in an ES module e.g.<br>
+</p>
+
+<div class="highlight js-code-highlight">
+<pre class="highlight javascript"><code><span class="k">import</span> <span class="nx">someModule</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">someModule</span><span class="dl">"</span><span class="p">;</span>
+</code></pre>
+<div class="highlight__panel js-actions-panel">
+<div class="highlight__panel-action js-fullscreen-code-action">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewbox="0 0 24 24" class="highlight-action crayons-icon highlight-action--fullscreen-on"><title>Enter fullscreen mode</title>
+    <path d="M16 3h6v6h-2V5h-4V3zM2 3h6v2H4v4H2V3zm18 16v-4h2v6h-6v-2h4zM4 19h4v2H2v-6h2v4z"></path>
+</svg>
+
+    <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewbox="0 0 24 24" class="highlight-action crayons-icon highlight-action--fullscreen-off"><title>Exit fullscreen mode</title>
+    <path d="M18 7h4v2h-6V3h2v4zM8 9H2V7h4V3h2v6zm10 8v4h-2v-6h6v2h-4zM8 15v6H6v-4H2v-2h6z"></path>
+</svg>
+
+</div>
+</div>
+</div>
+
+
+
+<p>Thanks to some <a href="https://github.com/nodejs/node/pull/35249">amazing work</a> by <a href="https://twitter.com/guybedford/">Guy Bedford</a>, <a href="https://github.com/GeoffreyBooth">Geoffrey Booth</a>, and host of other contributors, you can also import named exports from CommonJS modules (in most cases - I've <a href="https://simonplend.com/node-js-now-supports-named-imports-from-commonjs-modules-but-what-does-that-mean/">written about this in detail</a>) e.g.<br>
+</p>
+
+<div class="highlight js-code-highlight">
+<pre class="highlight javascript"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">someFunction</span><span class="p">,</span> <span class="nx">someObject</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">someModule</span><span class="dl">"</span><span class="p">;</span>
+</code></pre>
+<div class="highlight__panel js-actions-panel">
+<div class="highlight__panel-action js-fullscreen-code-action">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewbox="0 0 24 24" class="highlight-action crayons-icon highlight-action--fullscreen-on"><title>Enter fullscreen mode</title>
+    <path d="M16 3h6v6h-2V5h-4V3zM2 3h6v2H4v4H2V3zm18 16v-4h2v6h-6v-2h4zM4 19h4v2H2v-6h2v4z"></path>
+</svg>
+
+    <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewbox="0 0 24 24" class="highlight-action crayons-icon highlight-action--fullscreen-off"><title>Exit fullscreen mode</title>
+    <path d="M18 7h4v2h-6V3h2v4zM8 9H2V7h4V3h2v6zm10 8v4h-2v-6h6v2h-4zM8 15v6H6v-4H2v-2h6z"></path>
+</svg>
+
+</div>
+</div>
+</div>
+
+
+
+<p>What all of this means is that, in general, you can <code>import</code> CommonJS modules in your ES modules and Node.js will take care of all the module format interoperability for you. I think that's pretty damn impressive.</p>
+
+<p>The Node.js ECMAScript module documentation has a section which covers all the details about <a href="https://nodejs.org/api/esm.html#esm_interoperability_with_commonjs">Interoperability with CommonJS</a>.</p>
+
+<h2>
+  <a name="use-es-modules-when-you-start-a-new-nodejs-project" href="#use-es-modules-when-you-start-a-new-nodejs-project">
+  </a>
+  Use ES modules when you start a new Node.js project
+</h2>
+
+<p>A new Node.js project is a great opportunity to start using ES modules. However, Node.js treats JavaScript code as CommonJS modules by default. This means you must tell it when it should treat JavaScript code as ES modules.</p>
+
+<p>If all of your project's code will be in ES modules you can add <code>"type": "module"</code> in the project's <code>package.json</code> file and you're good to go. Node.js will treat every module in your project as an ES module.</p>
+
+<p>Note: This doesn't mean the dependencies your project uses must use ES modules. ES and CommonJS modules have good interoperability, as explained above.</p>
+
+<p>If only specific modules in your project will be ES modules, give the files they're contained in an <code>.mjs</code> extension (instead of <code>.js</code>) and Node.js will use the ES module loader for those scripts.</p>
+
+<p>To learn more about configuring ES modules in Node.js I recommend reading the <a href="https://nodejs.org/api/packages.html#packages_determining_module_system">Node.js Packages documentation</a> on this subject.</p>
+
+<h2>
+  <a name="its-probably-not-worth-migrating-your-existing-nodejs-applications-to-use-es-modules" href="#its-probably-not-worth-migrating-your-existing-nodejs-applications-to-use-es-modules">
+  </a>
+  It's probably not worth migrating your existing Node.js applications to use ES modules
+</h2>
+
+<p>There's no single hugely obvious benefit to migrating an existing Node.js application from using CommonJS modules to ES modules. Unless you have a good reason to, migrating to ES modules just for the sake of it is probably not worth it. Given that modules are imported when an application starts, you're not going to see performance improvements when your application is running e.g. handling requests and serving responses.</p>
+
+<p>If you're working with a small application, by all means go ahead and migrate it to use ES modules for the learning experience. For large applications though, there are almost certainly other things you could better spend your time / money on (and it's likely that your employer or clients will agree).</p>
+
+<p>Node.js packages <em>should</em> potentially be updated to use ES modules. They can be changed to only use ES modules, or they can be configured to offer both CommonJS and ES modules (a "dual" package). The Node.js documentation dives into the <a href="https://nodejs.org/api/packages.html#packages_dual_commonjs_es_module_packages">pros and cons of the "dual" package approach</a>.</p>
+
+<p>Sindre Sorhus, author of over 1,000 Node.js packages, is planning to convert all of their packages to only use ES modules in order to <a href="https://blog.sindresorhus.com/get-ready-for-esm-aa53530b3f77">"rip off the bandaid and push the ecosystem forward"</a>.</p>
+
+<h2>
+  <a name="potential-pain-points" href="#potential-pain-points">
+  </a>
+  Potential pain points
+</h2>
+
+<p>While Node.js support for ES modules is really good, there are a couple of potential pain points you should be aware of. I expect these potential pain points to go away over time as the wider Node.js ecosystem support for ES modules improves.</p>
+
+<h3>
+  <a name="limited-test-library-support-for-mocking-es-modules" href="#limited-test-library-support-for-mocking-es-modules">
+  </a>
+  Limited test library support for mocking ES modules
+</h3>
+
+<p>Jest and Sinon don't yet support mocking ES modules:</p>
+
+<ul>
+<li>Jest has <a href="https://jestjs.io/docs/en/ecmascript-modules">experimental support for ES modules</a>.</li>
+<li>Sinon does not have support for ES modules, but there is a recently re-opened <a href="https://github.com/sinonjs/sinon/issues/1832">GitHub issue</a> which offers a workaround.</li>
+</ul>
+
+<p>If you need an alternative for mocking, <a href="https://github.com/testdouble/testdouble.js/">testdouble.js</a> has full ES module support thanks to <a href="https://dev.to/giltayar/mock-all-you-want-supporting-es-modules-in-the-testdouble-js-mocking-library-3gh1">some excellent work by Gil Tayar</a>.</p>
+
+<p>The <code>testdouble</code> library is test-framework agnostic, meaning you can happily use it with any framework you're already using e.g. Mocha, Jest, Jasmine, Tape.</p>
+
+<h3>
+  <a name="you-cant-import-json-files-without-using-an-experimental-flag" href="#you-cant-import-json-files-without-using-an-experimental-flag">
+  </a>
+  You can't import JSON files without using an experimental flag
+</h3>
+
+<p>You can't <code>import</code> JSON files - e.g. <code>some-file.json</code> - without using an experimental flag when you run <code>node</code>. This isn't a big deal for many applications, but if you're currently doing <code>require("some-file.json")</code> in your application, this is something to be aware of.</p>
+
+<p>The Node.js documentation details <a href="https://nodejs.org/api/esm.html#esm_no_json_module_loading">a workaround for loading JSON files in ES modules</a>. You can also enable the <a href="https://nodejs.org/api/esm.html#esm_json_modules">experimental JSON module loading</a> if you really need to.</p>
+
+<h2>
+  <a name="my-top-links-for-learning-more" href="#my-top-links-for-learning-more">
+  </a>
+  My top links for learning more
+</h2>
+
+<ul>
+<li>
+<a href="https://nodejs.org/api/esm.html">Node.js documentation for ECMAScript modules</a> - The latest Node.js documentation for ES modules. It's really good and very thorough.</li>
+<li>
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules">MDN Guide on JavaScript modules</a> - This is a fantastic guide which provides some useful background on modules in JavaScript, along with a wealth of practical JavaScript module examples. I ❤️ MDN so much.</li>
+<li>
+<a href="https://www.youtube.com/watch?v=mMEKrHmZLpQ">NodeConf Remote 2020 - Gil Tayar - ES Modules in Node.JS</a> - An excellent introduction to ES modules in Node.js (<a href="https://github.com/giltayar/ah-theyre-here-esm-nodejs">companion code + link to slides</a>, <a href="https://simonplend.com/notes-from-nodeconf-remote-2020/#talk-es-modules-in-nodejs">my notes from this talk</a>).</li>
+<li>
+<a href="https://redfin.engineering/node-modules-at-war-why-commonjs-and-es-modules-cant-get-along-9617135eeca1">Node Modules at War: Why CommonJS and ES Modules Can’t Get Along</a> - This blog post is now a little bit out of date - e.g. ES modules can now import named CommonJS exports from many packages - but it's still well worth a read. When I read this article last year it really helped me understand the differences between the two module types and made a lot of things click for me.</li>
+</ul>
+
+
+
+
+
+      </article>
+
+
+
+    </div>
+  </main>
+
+  <aside class="crayons-layout__sidebar-right" aria-label="Author details">
+
+
+
+  </aside>
+</div>
+
+
+<div class="mod-actions-menu print-hidden"></div>
+<div data-testid="flag-user-modal-container" class="flag-user-modal-container hidden"></div>
+
+<div class="fullscreen-code js-fullscreen-code"></div>
+<script src="https://dev.to/packs/js/runtime~followButtons-dcfdd9725da59a1495e1.js" defer="defer"></script>
+<script src="https://dev.to/packs/js/2-feac54b0d5293fd89992.chunk.js" defer="defer"></script>
+<script src="https://dev.to/packs/js/followButtons-90e72a702d24af42a85a.chunk.js" defer="defer"></script>
+
+
+
+    <div id="runtime-banner-container"></div>
+  </div>
+</div>
+<div id="snack-zone"></div>
+
+    
+  <div id="i18n-translations" data-translations="{&quot;en&quot;:{&quot;core&quot;:{&quot;add_comment&quot;:&quot;Add comment&quot;,&quot;analytics&quot;:&quot;Analytics&quot;,&quot;comment&quot;:&quot;Comment&quot;,&quot;comments&quot;:&quot;Comments&quot;,&quot;community_name_is_great&quot;:&quot;%{community_name} is great!&quot;,&quot;copy_link&quot;:&quot;Copy link&quot;,&quot;create_account&quot;:&quot;Create account&quot;,&quot;dashboard&quot;:&quot;Dashboard&quot;,&quot;edit_profile&quot;:&quot;Edit profile&quot;,&quot;follow&quot;:&quot;Follow&quot;,&quot;follow_back&quot;:&quot;Follow back&quot;,&quot;follower&quot;:&quot;Follower&quot;,&quot;followers&quot;:&quot;Followers&quot;,&quot;following&quot;:&quot;Following&quot;,&quot;joined&quot;:&quot;Joined&quot;,&quot;joined_on&quot;:&quot;Joined on&quot;,&quot;like&quot;:&quot;Like&quot;,&quot;listings&quot;:&quot;Listings&quot;,&quot;loading&quot;:&quot;loading...&quot;,&quot;location&quot;:&quot;Location&quot;,&quot;log_in&quot;:&quot;Log in&quot;,&quot;more_from&quot;:&quot;More from&quot;,&quot;pinned&quot;:&quot;Pinned&quot;,&quot;post&quot;:&quot;Post&quot;,&quot;posts&quot;:&quot;Posts&quot;,&quot;reaction&quot;:&quot;Reaction&quot;,&quot;reaction_pluralized&quot;:{&quot;one&quot;:&quot;reaction&quot;,&quot;other&quot;:&quot;reactions&quot;},&quot;reactions&quot;:{&quot;heart&quot;:&quot;Heart&quot;,&quot;save&quot;:&quot;Save&quot;,&quot;unicorn&quot;:&quot;Unicorn&quot;},&quot;reply&quot;:&quot;Reply&quot;,&quot;report_abuse&quot;:&quot;Report abuse&quot;,&quot;search&quot;:&quot;Search&quot;,&quot;series&quot;:&quot;Series&quot;,&quot;settings&quot;:&quot;Settings&quot;,&quot;trending_on&quot;:&quot;Trending on&quot;}}}"></div>
+  </body>
+  </html>
