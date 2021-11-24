@@ -5,7 +5,7 @@
   > .elementor-motion-effects-container
   > .elementor-motion-effects-layer {
   background-color: var(--e-global-color-247e669);
-  background-image: url("../jpg/dark-stone-wall-texture-_11.jpg");
+  background-image: url("../jpg/bg_main.jpeg");
 }
 .elementor-18
   .elementor-element.elementor-element-5485c54
@@ -621,6 +621,14 @@ body:not(.rtl)
   align-content: space-between;
   align-items: space-between;
 }
+
+.elementor-18
+  .elementor-element.elementor-element-ccdee5a.elementor-column.elementor-element[data-element_type="column"]
+  > .elementor-widget-wrap.elementor-element-populated
+  h6 {
+  text-align: left;
+}
+
 .elementor-18
   .elementor-element.elementor-element-ccdee5a
   > .elementor-element-populated {
@@ -660,7 +668,7 @@ body:not(.rtl)
   padding: 30px 0px 0px 0px;
 }
 .elementor-18 .elementor-element.elementor-element-870acb9 {
-  text-align: center;
+  text-align: left;
 }
 .elementor-18
   .elementor-element.elementor-element-870acb9
@@ -1398,7 +1406,7 @@ body:not(.rtl)
   text-align: right;
 }
 .elementor-18 .elementor-element.elementor-element-cef918f img {
-  width: 86%;
+  width: 100%;
 }
 .elementor-18
   .elementor-element.elementor-element-6156a2f:not(.elementor-motion-effects-element-type-background),
@@ -1860,7 +1868,7 @@ body:not(.rtl)
   > .elementor-motion-effects-container
   > .elementor-motion-effects-layer {
   background-color: var(--e-global-color-247e669);
-  background-image: url("https://kitpro.site/vitae/wp-content/uploads/sites/44/2021/10/photographer-with-digital-camera-in-studio-J2T42R9.png");
+  background-image: url("../jpg/pexels-pixabay-270348.jpg");
   background-position: top center;
   background-size: cover;
 }
